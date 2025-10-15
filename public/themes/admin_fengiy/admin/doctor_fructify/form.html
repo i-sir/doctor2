@@ -103,10 +103,31 @@
     </div>
 </div>
 
-is_drug//家中是否有药物
+<!--is_drug//家中是否有药物-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">家中是否有药物:</label>
+    <div class="layui-input-block col-sm-6" style="">
+        <if condition="!empty($is_drug)">
+            <select class="form-control post-params" name="is_drug" lay-filter="is_drug" id="is_drug">
+                <foreach item="vo" key="key" name="is_drug_list">
+                    <option value="{$key}"
+                    <if condition="$is_drug eq $key ">selected</if>
+                    >{$vo}</option>
+                </foreach>
+            </select>
+            <else/>
+            <select class="form-control post-params" name="is_drug" lay-filter="is_drug" id="is_drug">
+                <foreach item="vo" key="key" name="is_drug_list">
+                    <option value="{$key}">{$vo}</option>
+                </foreach>
+            </select>
+        </if>
+    </div>
+</div>
+
 
 <!--退烧药-->
-<div class="form-group">
+<div class="form-group is_drug is_drug1">
     <label class="col-sm-2 control-label">退烧药:</label>
     <div class="layui-input-block col-sm-6">
         <foreach name="drug_list" item="drug_value">
@@ -121,8 +142,30 @@ is_drug//家中是否有药物
     </div>
 </div>
 
+<script>
+    layui.use(['layer', 'form'], function () {
+        let layer = layui.layer, form = layui.form;
+        const is_drug = $("#is_drug").val();
+        setShow(is_drug)
+        form.on('select(is_drug)', function (data) {
+            setShow(data.value)
+        })
+
+        function setShow(is_drug) {
+            $('.is_drug').css('display', 'none');
+            $('.is_drug' + is_drug).css('display', 'block');
+            //可以初始化值为空
+        }
+    });
+</script>
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <!--说明-->
 <div class="form-group">
     <label class="col-sm-2 control-label">说明:</label>

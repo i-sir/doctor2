@@ -429,6 +429,8 @@ class DoctorFructifyInit extends Base
             $params['drug_ids'] = '';
         }
 
+        if ($params['is_drug'] == 2) $params['drug_ids'] = '';
+
 
         if (!empty($where)) {
             //传入where条件,根据条件更新数据
