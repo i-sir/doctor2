@@ -1,0 +1,162 @@
+<!--备注-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">备注:</label>
+    <div class="layui-input-block col-sm-6">
+        <input type="text" name="name" class="form-control post-params item-left" value="{$name|default=''}">
+    </div>
+</div>
+
+<!--患者年龄-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">患者年龄:</label>
+    <div class="layui-input-block col-sm-6">
+        <foreach name="age_list" item="age_value">
+            <input class="form-control post-params" lay-skin="tag" name="age_ids[{$age_value.id}]"
+                   title="{$age_value.name}"
+                   type="checkbox"
+            <if condition="in_array($age_value.id,$age_ids)">
+                checked
+            </if>
+            >
+        </foreach>
+    </div>
+</div>
+
+<!--体重-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">体重:</label>
+    <div class="layui-input-block col-sm-6">
+        <foreach name="weight_list" item="weight_value">
+            <input class="form-control post-params" lay-skin="tag" name="weight_ids[{$weight_value.id}]"
+                   title="{$weight_value.name}"
+                   type="checkbox"
+            <if condition="in_array($weight_value.id,$weight_ids)">
+                checked
+            </if>
+            >
+        </foreach>
+    </div>
+</div>
+
+<!--既往史-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">既往史:</label>
+    <div class="layui-input-block col-sm-6">
+        <foreach name="past_list" item="past_value">
+            <input class="form-control post-params" lay-skin="tag" name="past_ids[{$past_value.id}]"
+                   title="{$past_value.name}"
+                   type="checkbox"
+            <if condition="in_array($past_value.id,$past_ids)">
+                checked
+            </if>
+            >
+        </foreach>
+    </div>
+</div>
+
+<!--过敏史-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">过敏史:</label>
+    <div class="layui-input-block col-sm-6">
+        <foreach name="allergy_list" item="allergy_value">
+            <input class="form-control post-params" lay-skin="tag" name="allergy_ids[{$allergy_value.id}]"
+                   title="{$allergy_value.name}"
+                   type="checkbox"
+            <if condition="in_array($allergy_value.id,$allergy_ids)">
+                checked
+            </if>
+            >
+        </foreach>
+    </div>
+</div>
+
+
+<!--部位-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">部位:</label>
+    <div class="layui-input-block col-sm-6">
+        <foreach name="part_list" item="part_value">
+            <input class="form-control post-params" lay-skin="tag" name="part_ids[{$part_value.id}]"
+                   title="{$part_value.name}"
+                   type="checkbox"
+            <if condition="in_array($part_value.id,$part_ids)">
+                checked
+            </if>
+            >
+        </foreach>
+    </div>
+</div>
+
+<!--温度-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">温度:</label>
+    <div class="layui-input-block col-sm-6">
+        <foreach name="celsius_list" item="celsius_value">
+            <input class="form-control post-params" lay-skin="tag" name="celsius_ids[{$celsius_value.id}]"
+                   title="{$celsius_value.name}"
+                   type="checkbox"
+            <if condition="in_array($celsius_value.id,$celsius_ids)">
+                checked
+            </if>
+            >
+        </foreach>
+    </div>
+</div>
+
+is_drug//家中是否有药物
+
+<!--退烧药-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">退烧药:</label>
+    <div class="layui-input-block col-sm-6">
+        <foreach name="drug_list" item="drug_value">
+            <input class="form-control post-params" lay-skin="tag" name="drug_ids[{$drug_value.id}]"
+                   title="{$drug_value.name}"
+                   type="checkbox"
+            <if condition="in_array($drug_value.id,$drug_ids)">
+                checked
+            </if>
+            >
+        </foreach>
+    </div>
+</div>
+
+
+
+<!--说明-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">说明:</label>
+    <div class="layui-input-block col-sm-6">
+        <script type="text/plain" id="content" name="content">
+            {:cmf_replace_content_file_url(htmlspecialchars_decode($content))}
+        </script>
+        <script type="text/javascript">
+            //编辑器路径定义
+            var editorURL = GV.WEB_ROOT;
+        </script>
+        <script type="text/javascript" src="/static/js/ueditor/ueditor.config.js?v=00001"></script>
+        <script type="text/javascript" src="/static/js/ueditor/ueditor.all.min.js"></script>
+        <!--编辑器支持秀米-->
+        <script type="text/javascript" src="/static/js/ueditor/xiumi/xiumi-ue-dialog-v5.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/js/ueditor/xiumi/xiumi-ue-v5.css"/>
+        <script type="text/javascript">
+            $(function () {
+                editorcontent = new baidu.editor.ui.Editor();
+                editorcontent.render('content');
+                try {
+                    editorcontent.sync();
+                } catch (err) {
+                }
+            });
+        </script>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

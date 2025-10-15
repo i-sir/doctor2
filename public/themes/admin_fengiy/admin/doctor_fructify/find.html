@@ -1,0 +1,244 @@
+ <include file="public@header"/>
+<style>
+    textarea {
+        border: 0;
+        outline: none;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    input {
+        border: 0;
+        outline: none;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    .col-sm-6 {
+        margin-top: 7px;
+    }
+</style>
+
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('find',['id'=>$id,'pid'=>$pid,'params'=>$params])}">查看</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20 layui-form" autocomplete="off"
+          action="{:url('edit_post',['id'=>$id,'page'=>$page,'pid'=>$pid,'params'=>$params])}">
+
+
+        
+
+
+
+            <!--备注-->            <div class="form-group">
+                <label class="col-sm-2 control-label">备注:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$name|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--患者年龄-->            <div class="form-group">
+                <label class="col-sm-2 control-label">患者年龄:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$age_ids|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--体重-->            <div class="form-group">
+                <label class="col-sm-2 control-label">体重:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$weight_ids|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--既往史-->            <div class="form-group">
+                <label class="col-sm-2 control-label">既往史:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$past_ids|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--过敏史-->            <div class="form-group">
+                <label class="col-sm-2 control-label">过敏史:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$allergy_ids|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--温度-->            <div class="form-group">
+                <label class="col-sm-2 control-label">温度:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$celsius_ids|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--部位-->            <div class="form-group">
+                <label class="col-sm-2 control-label">部位:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$part_ids|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--家中是否有退烧药-->            <div class="form-group">
+                <label class="col-sm-2 control-label">家中是否有退烧药:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$is_drug_name|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--退烧药-->            <div class="form-group">
+                <label class="col-sm-2 control-label">退烧药:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$drug_ids|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--说明-->            <div class="form-group">
+                <label class="col-sm-2 control-label">说明:</label>
+                <div class="layui-input-block col-sm-6">
+                                                <script type="text/plain" id="content" name="content">{:cmf_replace_content_file_url(htmlspecialchars_decode($content))}                            </script>
+                            <script type="text/javascript">
+                                //编辑器路径定义
+                                var editorURL = GV.WEB_ROOT;
+                            </script>
+                            <script type="text/javascript" src="/static/js/ueditor/ueditor.config.js?v=00001"></script>
+                            <script type="text/javascript" src="/static/js/ueditor/ueditor.all.min.js"></script>
+                            <!--编辑器支持秀米-->
+                            <script type="text/javascript" src="/static/js/ueditor/xiumi/xiumi-ue-dialog-v5.js"></script>
+                            <link rel="stylesheet" type="text/css" href="/static/js/ueditor/xiumi/xiumi-ue-v5.css" />
+                            <script type="text/javascript">
+                                $(function () {
+                                    editorcontent = new baidu.editor.ui.Editor();
+                                    editorcontent.render('content');
+                                    try {
+                                        editorcontent.sync();
+                                    } catch (err) {
+                                    }
+                                });
+                            </script>
+                                        </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--显示:1是,2否-->            <div class="form-group">
+                <label class="col-sm-2 control-label">显示:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$is_show_name|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--list_order-->            <div class="form-group">
+                <label class="col-sm-2 control-label">list_order:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$list_order|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+        <!-- 主键id -->
+        <input type="text" name="id" value="{$id}" class="form-control post-params item-left" style="display: none">
+
+
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+
+
+

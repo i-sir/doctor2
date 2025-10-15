@@ -1,0 +1,87 @@
+<!--部位-->
+<!--
+index列表
+        if ($item['class_ids']) {
+            $class_ids               = $this->getParams($item['class_ids']);
+            $class_names             = $ShopClassModel->where('id', 'in', $class_ids)->column('name');
+            $item['class_names']     = $this->setParams($class_names);
+            $item['class_name_list'] = $class_names;
+            $item['class_ids']       = $class_ids;
+        }
+
+
+
+edit编辑
+      //处理分类结果值
+        if ($params['class_ids']) {
+            $class_ids           = array_keys($params['class_ids']);//提取key
+            $params['class_ids'] = $this->setParams($class_ids);
+        }else{
+          $params['class_ids'] = '';
+        }
+-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">部位:</label>
+    <div class="layui-input-block col-sm-6">
+        <foreach name="part_list" item="part_value">
+            <input class="form-control post-params" lay-skin="tag" name="part_ids[{$part_value.id}]"
+                   title="{$part_value.name}"
+                   type="checkbox"
+            <if condition="in_array($part_value.id,$part_ids)">
+                checked
+            </if>
+            >
+        </foreach>
+    </div>
+</div>
+
+<!--温度-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">温度:</label>
+    <div class="layui-input-block col-sm-6">
+        <foreach name="celsius_list" item="celsius_value">
+            <input class="form-control post-params" lay-skin="tag" name="celsius_ids[{$celsius_value.id}]"
+                   title="{$celsius_value.name}"
+                   type="checkbox"
+            <if condition="in_array($celsius_value.id,$celsius_ids)">
+                checked
+            </if>
+            >
+        </foreach>
+    </div>
+</div>
+
+<!--备注-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">备注:</label>
+    <div class="layui-input-block col-sm-6">
+        <input type="text" name="name" class="form-control post-params item-left" value="{$name|default=''}">
+    </div>
+</div>
+
+
+<!--发热程度-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">发热程度:</label>
+    <div class="layui-input-block col-sm-6">
+        <input type="text" name="degree" class="form-control post-params item-left" value="{$degree|default=''}">
+    </div>
+</div>
+
+
+<!--处理建议-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">处理建议:</label>
+    <div class="layui-input-block col-sm-6">
+        <textarea class="form-control post-params item-left" name="proposal">{$proposal|default=''}</textarea>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
