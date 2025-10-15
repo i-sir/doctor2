@@ -1,0 +1,43 @@
+
+<!--症状-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">症状:</label>
+    <div class="layui-input-block col-sm-6">
+        <foreach name="symptom_list" item="symptom_value">
+            <input class="form-control post-params" lay-skin="tag" name="symptom_ids[{$symptom_value.id}]"
+                   title="{$symptom_value.name}"
+                   type="checkbox"
+            <if condition="in_array($symptom_value.id,$symptom_ids)">
+                checked
+            </if>
+            >
+        </foreach>
+    </div>
+</div>
+
+
+<!--备注-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">备注:</label>
+    <div class="layui-input-block col-sm-6">
+        <input type="text" name="name" class="form-control post-params item-left" value="{$name|default=''}">
+    </div>
+</div>
+
+
+<!--诊断结果-->
+<div class="form-group">
+    <label class="col-sm-2 control-label">诊断结果:</label>
+    <div class="layui-input-block col-sm-6">
+        <textarea class="form-control post-params item-left" name="value">{$value|default=''}</textarea>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

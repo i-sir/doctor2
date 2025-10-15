@@ -59,10 +59,10 @@
 
 
 
-            <!--联系人-->            <div class="form-group">
-                <label class="col-sm-2 control-label">联系人:</label>
+            <!--满意程度-->            <div class="form-group">
+                <label class="col-sm-2 control-label">满意程度:</label>
                 <div class="layui-input-block col-sm-6">
-                                                {$username|default=''}                                    </div>
+                                                {$satisfaction|default=''}                                    </div>
             </div>
 
 
@@ -74,38 +74,8 @@
 
 
 
-            <!--手机号-->            <div class="form-group">
-                <label class="col-sm-2 control-label">手机号:</label>
-                <div class="layui-input-block col-sm-6">
-                                                {$phone|default=''}                                    </div>
-            </div>
-
-
-
-
-
-
-        
-
-
-
-            <!--标题-->            <div class="form-group">
-                <label class="col-sm-2 control-label">标题:</label>
-                <div class="layui-input-block col-sm-6">
-                                                {$title|default=''}                                    </div>
-            </div>
-
-
-
-
-
-
-        
-
-
-
-            <!--留言内容-->            <div class="form-group">
-                <label class="col-sm-2 control-label">留言内容:</label>
+            <!--建议-->            <div class="form-group">
+                <label class="col-sm-2 control-label">建议:</label>
                 <div class="layui-input-block col-sm-6">
                                                 {$content|default=''}                                    </div>
             </div>
@@ -119,15 +89,15 @@
 
 
 
-            <!--图集-->            <div class="form-group">
-                <label class="col-sm-2 control-label">图集:</label>
+            <!--图片-->            <div class="form-group">
+                <label class="col-sm-2 control-label">图片:</label>
                 <div class="layui-input-block col-sm-6">
-                                                <if condition='!empty($images)'>
-<foreach name='$images' item='value'>
-<a href="javascript:imagePreviewDialog('{:cmf_get_image_preview_url($value)}');">
-<img src='{:cmf_get_image_preview_url($value)}' style='height:40px;'>
+                                                <if condition='!empty($image)'>
+<a href="javascript:imagePreviewDialog('{:cmf_get_asset_url($image)}');">
+<img src='{:cmf_get_asset_url($image)}' style='height:40px;'>
 </a>
-</foreach>
+<else/>
+暂无上传
 </if>
                 </div>
             </div>
@@ -141,10 +111,17 @@
 
 
 
-            <!--回复内容-->            <div class="form-group">
-                <label class="col-sm-2 control-label">回复内容:</label>
+            <!--视频-->            <div class="form-group">
+                <label class="col-sm-2 control-label">视频:</label>
                 <div class="layui-input-block col-sm-6">
-                                                {$reply_content|default=''}                                    </div>
+                                                <if condition='!empty($video)'>
+<a href="{:cmf_get_file_download_url($video)}"
+										target="_blank">下载</a>
+</a>
+<else/>
+暂无上传
+</if>
+                </div>
             </div>
 
 
@@ -156,25 +133,17 @@
 
 
 
-            <!--回复时间-->            <div class="form-group">
-                <label class="col-sm-2 control-label">回复时间:</label>
+            <!--录音-->            <div class="form-group">
+                <label class="col-sm-2 control-label">录音:</label>
                 <div class="layui-input-block col-sm-6">
-                                                {:isset($reply_time) && $reply_time > 10000 ? date('Y-m-d H:i:s', $reply_time) : ''}                </div>
-            </div>
-
-
-
-
-
-
-        
-
-
-
-            <!--状态:1待处理,2已处理-->            <div class="form-group">
-                <label class="col-sm-2 control-label">状态:</label>
-                <div class="layui-input-block col-sm-6">
-                                                {$status_name|default=''}                                    </div>
+                                                <if condition='!empty($audio_file)'>
+<a href="{:cmf_get_file_download_url($audio_file)}"
+										target="_blank">下载</a>
+</a>
+<else/>
+暂无上传
+</if>
+                </div>
             </div>
 
 

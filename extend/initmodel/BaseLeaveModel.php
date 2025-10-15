@@ -8,9 +8,9 @@ namespace initmodel;
     *     "name_underline"   =>"base_leave",
     *     "table_name"       =>"base_leave",
     *     "model_name"       =>"BaseLeaveModel",
-    *     "remark"           =>"投诉建议",
+    *     "remark"           =>"评价与建议",
     *     "author"           =>"",
-    *     "create_time"      =>"2025-06-11 10:54:52",
+    *     "create_time"      =>"2025-10-15 16:32:07",
     *     "version"          =>"1.0",
     *     "use"              => new \initmodel\BaseLeaveModel();
     * )
@@ -24,7 +24,7 @@ use think\model\concern\SoftDelete;
 
 class BaseLeaveModel extends Model{
 
-	protected $name = 'base_leave';//投诉建议
+	protected $name = 'base_leave';//评价与建议
 
 	//软删除
 	protected $hidden            = ['delete_time'];

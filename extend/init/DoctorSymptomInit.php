@@ -5,15 +5,15 @@ namespace init;
 
 /**
     * @Init(
-    *     "name"            =>"BaseLeave",
-    *     "name_underline"  =>"base_leave",
-    *     "table_name"      =>"base_leave",
-    *     "model_name"      =>"BaseLeaveModel",
-    *     "remark"          =>"评价与建议",
+    *     "name"            =>"DoctorSymptom",
+    *     "name_underline"  =>"doctor_symptom",
+    *     "table_name"      =>"doctor_symptom",
+    *     "model_name"      =>"DoctorSymptomModel",
+    *     "remark"          =>"症状管理",
     *     "author"          =>"",
-    *     "create_time"     =>"2025-10-15 16:32:07",
+    *     "create_time"     =>"2025-10-15 16:11:44",
     *     "version"         =>"1.0",
-    *     "use"             => new \init\BaseLeaveInit();
+    *     "use"             => new \init\DoctorSymptomInit();
     * )
     */
 
@@ -21,23 +21,24 @@ use think\facade\Db;
 use app\admin\controller\ExcelController;
 
 
-class BaseLeaveInit extends Base
+class DoctorSymptomInit extends Base
 {
 
-    
+    public $is_show =[1=>'是',2=>'否'];//显示 
+
 
     protected $Field         = "*";//过滤字段,默认全部
     protected $Limit         = 100000;//如不分页,展示条数
     protected $PageSize      = 15;//分页每页,数据条数
-    protected $Order         = "id desc";//排序
+    protected $Order         = "list_order,id desc";//排序
     protected $InterfaceType = "api";//接口类型:admin=后台,api=前端
     protected $DataFormat    = "find";//数据格式,find详情,list列表
 
         //本init和model
         public function _init()
         {
-            $BaseLeaveInit  = new \init\BaseLeaveInit();//评价与建议   (ps:InitController)
-            $BaseLeaveModel = new \initmodel\BaseLeaveModel(); //评价与建议  (ps:InitModel)
+            $DoctorSymptomInit  = new \init\DoctorSymptomInit();//症状管理   (ps:InitController)
+            $DoctorSymptomModel = new \initmodel\DoctorSymptomModel(); //症状管理  (ps:InitModel)
         }
 
         /**
@@ -49,7 +50,7 @@ class BaseLeaveInit extends Base
         public function common_item($item = [], $params = [])
         {
             
-            $MemberInit= new \init\MemberInit();//会员管理 (ps:InitController)
+            
             //接口类型
             if ($params['InterfaceType']) $this->InterfaceType = $params['InterfaceType'];
             //数据格式
@@ -63,21 +64,17 @@ class BaseLeaveInit extends Base
 
 
             /** 处理文字描述 **/
+            $item['is_show_name']=$this->is_show[$item['is_show']];//显示 
+
+
+
             
-
-
-            //查询用户信息
- $user_info=$MemberInit->get_find(['id'=>$item['user_id']]);
- $item['user_info']=$user_info;
 
 
             /** 处理数据 **/
             if ($this->InterfaceType == 'api') {
                 /** api处理文件 **/
-                if($item['image']) $item['image']=cmf_get_asset_url($item['image']);//图片
-if($item['video']) $item['video']=cmf_get_asset_url($item['video']);//视频
-if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file']);//录音
-
+                
 
                 /** 处理富文本 **/
                 
@@ -131,11 +128,11 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
         */
         public function get_list($where=[], $params = [])
         {
-            $BaseLeaveModel = new \initmodel\BaseLeaveModel(); //评价与建议  (ps:InitModel)
+            $DoctorSymptomModel = new \initmodel\DoctorSymptomModel(); //症状管理  (ps:InitModel)
 
 
             /** 查询数据 **/
-            $result = $BaseLeaveModel
+            $result = $DoctorSymptomModel
             ->where($where)
             ->order($params['order'] ?? $this->Order)
             ->field($params['field'] ?? $this->Field)
@@ -168,11 +165,11 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
         */
         public function get_list_paginate($where=[],  $params = [])
         {
-                $BaseLeaveModel = new \initmodel\BaseLeaveModel(); //评价与建议  (ps:InitModel)
+                $DoctorSymptomModel = new \initmodel\DoctorSymptomModel(); //症状管理  (ps:InitModel)
 
 
                 /** 查询数据 **/
-                $result = $BaseLeaveModel
+                $result = $DoctorSymptomModel
                 ->where($where)
                 ->order($params['order'] ?? $this->Order)
                 ->field($params['field'] ?? $this->Field)
@@ -201,10 +198,10 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
     */
     public function get_join_list($where=[], $params = [])
     {
-        $BaseLeaveModel = new \initmodel\BaseLeaveModel(); //评价与建议  (ps:InitModel)
+        $DoctorSymptomModel = new \initmodel\DoctorSymptomModel(); //症状管理  (ps:InitModel)
 
         /** 查询数据 **/
-        $result = $BaseLeaveModel
+        $result = $DoctorSymptomModel
             ->alias('a')
             ->join('member b','a.user_id = b.id')
             ->where($where)
@@ -237,14 +234,14 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
         */
         public function get_find($where=[],$params=[])
         {
-            $BaseLeaveModel = new \initmodel\BaseLeaveModel(); //评价与建议  (ps:InitModel)
+            $DoctorSymptomModel = new \initmodel\DoctorSymptomModel(); //症状管理  (ps:InitModel)
 
             /** 可直接传id,或者where条件 **/
             if (is_string($where) || is_int($where)) $where = ["id" => (int)$where];
             if (empty($where)) return false;
 
             /** 查询数据 **/
-            $item = $BaseLeaveModel
+            $item = $DoctorSymptomModel
                 ->where($where)
                 ->order($params['order'] ?? $this->Order)
                 ->field($params['field'] ?? $this->Field)
@@ -311,7 +308,7 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
         */
         public function edit_post($params,$where=[])
         {
-            $BaseLeaveModel = new \initmodel\BaseLeaveModel(); //评价与建议  (ps:InitModel)
+            $DoctorSymptomModel = new \initmodel\DoctorSymptomModel(); //症状管理  (ps:InitModel)
 
 
             /** 查询详情数据 && 需要再打开 **/
@@ -338,17 +335,17 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
           if(!empty($where)){
                 //传入where条件,根据条件更新数据
                 $params["update_time"] = time();
-                $result                = $BaseLeaveModel->where($where)->strict(false)->update($params);
+                $result                = $DoctorSymptomModel->where($where)->strict(false)->update($params);
                 //if ($result) $result = $item["id"];
             } elseif (!empty($params["id"])) {
                 //如传入id,根据id编辑数据
                 $params["update_time"] = time();
-                $result                = $BaseLeaveModel->where("id","=",$params["id"])->strict(false)->update($params);
+                $result                = $DoctorSymptomModel->where("id","=",$params["id"])->strict(false)->update($params);
                 //if($result) $result = $item["id"];
            } else {
                 //无更新条件则添加数据
                 $params["create_time"] = time();
-                $result                = $BaseLeaveModel->strict(false)->insert($params,true);
+                $result                = $DoctorSymptomModel->strict(false)->insert($params,true);
             }
 
             return $result;
@@ -364,7 +361,7 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
         */
         public function edit_post_two($params,$where=[])
         {
-            $BaseLeaveModel = new \initmodel\BaseLeaveModel(); //评价与建议  (ps:InitModel)
+            $DoctorSymptomModel = new \initmodel\DoctorSymptomModel(); //症状管理  (ps:InitModel)
 
 
             /** 可直接传id,或者where条件 **/
@@ -378,15 +375,15 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
             if(!empty($where)){
                 //传入where条件,根据条件更新数据
                 $params["update_time"] = time();
-                $result                = $BaseLeaveModel->where($where)->strict(false)->update($params);
+                $result                = $DoctorSymptomModel->where($where)->strict(false)->update($params);
             }elseif (!empty($params["id"])) {
                 //如传入id,根据id编辑数据
                 $params["update_time"] = time();
-                $result                = $BaseLeaveModel->where("id","=",$params["id"])->strict(false)->update($params);
+                $result                = $DoctorSymptomModel->where("id","=",$params["id"])->strict(false)->update($params);
             } else {
                 //无更新条件则添加数据
                 $params["create_time"] = time();
-                $result                = $BaseLeaveModel->strict(false)->insert($params);
+                $result                = $DoctorSymptomModel->strict(false)->insert($params);
             }
 
             return $result;
@@ -402,11 +399,11 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
         */
         public function delete_post($id, $type=1,$params=[])
         {
-        $BaseLeaveModel= new \initmodel\BaseLeaveModel(); //评价与建议  (ps:InitModel)
+        $DoctorSymptomModel= new \initmodel\DoctorSymptomModel(); //症状管理  (ps:InitModel)
 
 
-        if ($type == 1) $result = $BaseLeaveModel->destroy($id);//软删除 数据表字段必须有delete_time
-        if ($type == 2) $result = $BaseLeaveModel->destroy($id,true);//真实删除
+        if ($type == 1) $result = $DoctorSymptomModel->destroy($id);//软删除 数据表字段必须有delete_time
+        if ($type == 2) $result = $DoctorSymptomModel->destroy($id,true);//真实删除
 
         return $result;
         }
@@ -420,14 +417,14 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
         */
         public function batch_post($id, $params=[])
         {
-            $BaseLeaveModel = new \initmodel\BaseLeaveModel(); //评价与建议  (ps:InitModel)
+            $DoctorSymptomModel = new \initmodel\DoctorSymptomModel(); //症状管理  (ps:InitModel)
 
             $where   = [];
             $where[] = ["id", "in", $id];//$id 为数组
 
 
             $params["update_time"] = time();
-            $result = $BaseLeaveModel->where($where)->strict(false)->update($params);//修改状态
+            $result = $DoctorSymptomModel->where($where)->strict(false)->update($params);//修改状态
 
             return $result;
         }
@@ -442,12 +439,12 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
         */
         public function list_order_post($list_order,$params=[])
         {
-            $BaseLeaveModel = new \initmodel\BaseLeaveModel(); //评价与建议   (ps:InitModel)
+            $DoctorSymptomModel = new \initmodel\DoctorSymptomModel(); //症状管理   (ps:InitModel)
 
             foreach ($list_order as $k => $v) {
                 $where   = [];
                 $where[] = ["id", "=", $k];
-                $result  = $BaseLeaveModel->where($where)->strict(false)->update(["list_order" => $v, "update_time" => time()]);//排序
+                $result  = $DoctorSymptomModel->where($where)->strict(false)->update(["list_order" => $v, "update_time" => time()]);//排序
             }
 
             return $result;
@@ -464,10 +461,10 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
         */
         public function export_excel($where = [], $params = [])
         {
-            $BaseLeaveInit  = new \init\BaseLeaveInit();//评价与建议   (ps:InitController)
-            $BaseLeaveModel = new \initmodel\BaseLeaveModel(); //评价与建议  (ps:InitModel)
+            $DoctorSymptomInit  = new \init\DoctorSymptomInit();//症状管理   (ps:InitController)
+            $DoctorSymptomModel = new \initmodel\DoctorSymptomModel(); //症状管理  (ps:InitModel)
 
-            $result       = $BaseLeaveInit->get_list($where, $params);
+            $result       = $DoctorSymptomInit->get_list($where, $params);
 
             $result = $result->toArray();
             foreach ($result as $k => &$item) {
@@ -505,7 +502,7 @@ if($item['audio_file']) $item['audio_file']=cmf_get_asset_url($item['audio_file'
             //        ];
 
             $Excel = new ExcelController();
-            $Excel->excelExports($result, $headArrValue, ["fileName" => "评价与建议"]);
+            $Excel->excelExports($result, $headArrValue, ["fileName" => "症状管理"]);
         }
 
 }
