@@ -37,7 +37,7 @@ class OrderPayController extends AuthController
      *    @OA\Parameter(
      *         name="order_type",
      *         in="query",
-     *         description="10商城,90充值余额",
+     *         description="10问诊咨询",
      *         required=false,
      *         @OA\Schema(
      *             type="string",
@@ -75,7 +75,7 @@ class OrderPayController extends AuthController
 
         $Pay            = new PayController();
         $OrderPayModel  = new \initmodel\OrderPayModel();
-        $ShopOrderModel = new \initmodel\ShopOrderModel(); //订单管理   (ps:InitModel)
+        $DoctorOrderModel = new \initmodel\DoctorOrderModel(); //订单管理   (ps:InitModel)
 
         $map   = [];
         $map[] = ['order_num', '=', $params['order_num']];
@@ -84,11 +84,11 @@ class OrderPayController extends AuthController
         //订单支付
         if ($params['order_type'] == 10) {
             //修改订单,支付类型
-            $ShopOrderModel->where($map)->strict(false)->update([
+            $DoctorOrderModel->where($map)->strict(false)->update([
                 'pay_type'    => 1,
                 'update_time' => time(),
             ]);
-            $order_info = $ShopOrderModel->where($map)->find();
+            $order_info = $DoctorOrderModel->where($map)->find();
         }
 
 

@@ -1,0 +1,269 @@
+ <include file="public@header"/>
+<style>
+    textarea {
+        border: 0;
+        outline: none;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    input {
+        border: 0;
+        outline: none;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    .col-sm-6 {
+        margin-top: 7px;
+    }
+</style>
+
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('find',['id'=>$id,'pid'=>$pid,'params'=>$params])}">查看</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20 layui-form" autocomplete="off"
+          action="{:url('edit_post',['id'=>$id,'page'=>$page,'pid'=>$pid,'params'=>$params])}">
+
+
+        
+
+
+
+            <!--用户id-->            <div class="form-group">
+                <label class="col-sm-2 control-label">用户信息:</label>
+                <div class="layui-input-block col-sm-6">
+                                                <if condition='!empty($user_info)'>
+<div style="display: flex;align-items: center;">
+<a href="javascript:imagePreviewDialog('{:cmf_get_asset_url($user_info.avatar)}');">
+<img class='img-rounded' src='{:cmf_get_asset_url($user_info.avatar)}' style='height:40px;'>
+</a>
+<div style="margin-left: 6px;">
+<p ondblclick="copyContent('{$user_info.openid}')">{$user_info.nickname}({$user_info.id})</p>
+<p>{$user_info.phone}</p>
+</div>
+</div>
+<else/>
+已删除
+</if>
+                </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--状态:1待付款,2已付款,4已发货,6已收货,8已完成,10已取消,12退款申请,14退款不通过,16退款通过,20待生成价格-->            <div class="form-group">
+                <label class="col-sm-2 control-label">状态:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$status_name|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--订单号-->            <div class="form-group">
+                <label class="col-sm-2 control-label">订单号:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$order_num|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--支付单号-->            <div class="form-group">
+                <label class="col-sm-2 control-label">支付单号:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$pay_num|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--身份标识 openid-->            <div class="form-group">
+                <label class="col-sm-2 control-label">身份标识 openid:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$openid|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--实际支付金额-->            <div class="form-group">
+                <label class="col-sm-2 control-label">实际支付金额:</label>
+                <div class="layui-input-block col-sm-6">
+                                                <input type="number" class="form-control post-params item-left" name="amount"
+                                   value="{$amount|default=''}">
+                                        </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--患者年龄-->            <div class="form-group">
+                <label class="col-sm-2 control-label">患者年龄:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$age_id|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--体重-->            <div class="form-group">
+                <label class="col-sm-2 control-label">体重:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$weight_id|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--既往史-->            <div class="form-group">
+                <label class="col-sm-2 control-label">既往史:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$past_id|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--过敏史-->            <div class="form-group">
+                <label class="col-sm-2 control-label">过敏史:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$allergy_id|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--支付类型:1微信支付,2余额支付,3积分支付,4支付宝支付,5组合支付(微信+余额),6免费兑换-->            <div class="form-group">
+                <label class="col-sm-2 control-label">支付类型:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {$pay_type_name|default=''}                                    </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--门诊结束时间-->            <div class="form-group">
+                <label class="col-sm-2 control-label">门诊结束时间:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {:isset($end_time) && $end_time > 10000 ? date('Y-m-d', $end_time) : ''}                </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--取消时间-->            <div class="form-group">
+                <label class="col-sm-2 control-label">取消时间:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {:isset($cancel_time) && $cancel_time > 10000 ? date('Y-m-d H:i:s', $cancel_time) : ''}                </div>
+            </div>
+
+
+
+
+
+
+        
+
+
+
+            <!--支付时间-->            <div class="form-group">
+                <label class="col-sm-2 control-label">支付时间:</label>
+                <div class="layui-input-block col-sm-6">
+                                                {:isset($pay_time) && $pay_time > 10000 ? date('Y-m-d H:i:s', $pay_time) : ''}                </div>
+            </div>
+
+
+
+
+
+
+        
+
+        <!-- 主键id -->
+        <input type="text" name="id" value="{$id}" class="form-control post-params item-left" style="display: none">
+
+
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+
+
+
